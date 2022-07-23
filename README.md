@@ -2,8 +2,10 @@
 <p align="center"><b><i>blazingly fast</i></b>*<br/> tool to not forget things</p>
 
 <small>\* because you know, it's written in Rust</small>
+
+
 ## Usage
-This tool is interactive.
+This tool is interactive. It only supports Unix like oses currently.
 
 Available commands:
 
