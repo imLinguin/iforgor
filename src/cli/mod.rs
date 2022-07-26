@@ -15,6 +15,7 @@ pub enum Command {
     Create,
     Done(usize),
     Delete(usize),
+    Details(usize),
 }
 
 pub struct ConfigManager {
@@ -129,6 +130,24 @@ impl Cli {
                 self.rl.add_history_entry(&command);
                 Command::Create
             }
+            _ if command.starts_with("show") => {
+                self.rl.add_history_entry(&command);
+                let id: String;
+                let arguments = command.trim().split(' ');
+                if arguments.clone().count() == 1 {
+                    id = self.read_stdin("(id) ")
+                } else {
+                    id = arguments.last().unwrap().to_string();
+                }
+                let id_usize: usize = match id.trim().parse() {
+                    Ok(value) => value,
+                    Err(_) => {
+                        println!("Unable to parse the id");
+                        0
+                    }
+                };
+                Command::Details(id_usize)
+            }
             _ if command.starts_with("delete") => {
                 self.rl.add_history_entry(&command);
                 let id: String;
@@ -223,6 +242,21 @@ impl Cli {
                 Command::Create => {
                     let new_todo = todo::ToDo::cli_new();
                     self.todos.push(new_todo);
+                }
+                Command::Details(id) => {
+                    if id == 0 {
+                        println!("Such todo doesn't exist"); // id is usize so number can't be negative
+                        continue;
+                    }
+                    let id = id - 1;
+
+                    if id >= self.todos.len() {
+                        println!("Such todo doesn't exist");
+                        continue;
+                    }
+
+                    let todo = self.todos.get_mut(id).unwrap();
+                    todo.print_details();
                 }
                 Command::Nothing => continue,
                 Command::Unknown => {

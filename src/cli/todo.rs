@@ -42,6 +42,10 @@ impl ToDo {
     pub fn change_status(&mut self) {
         self.done = !self.done;
     }
+
+    pub fn print_details(&mut self) {
+        println!("Name: {}\nDescription: {}", self.name, self.description);
+    }
 }
 
 fn get_done_character(done: bool) -> char {

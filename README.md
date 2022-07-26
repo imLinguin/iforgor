@@ -12,6 +12,7 @@ Available commands:
 - `add` | `create` - Add a todo
 - `delete` - Delete the todo
 - `done` - Switch done mark
+- `show` - Display description of a todo
 - `clear_history` - Clear commands history
 - `exit` - Exit
 
