@@ -117,7 +117,7 @@ impl Cli {
 
         match command.trim() {
             "exit" => Command::Exit,
-            "list" => {
+            "list" | "ls" => {
                 self.rl.add_history_entry(&command);
                 Command::List
             }
@@ -130,7 +130,7 @@ impl Cli {
                 self.rl.add_history_entry(&command);
                 Command::Create
             }
-            _ if command.starts_with("show") => {
+            _ if command.starts_with("show") || command.starts_with("details") => {
                 self.rl.add_history_entry(&command);
                 let id: String;
                 let arguments = command.trim().split(' ');
@@ -148,7 +148,7 @@ impl Cli {
                 };
                 Command::Details(id_usize)
             }
-            _ if command.starts_with("delete") => {
+            _ if command.starts_with("delete") || command.starts_with("remove") => {
                 self.rl.add_history_entry(&command);
                 let id: String;
                 let arguments = command.trim().split(' ');

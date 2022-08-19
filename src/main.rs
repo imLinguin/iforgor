@@ -1,7 +1,6 @@
 mod cli;
 
 use std::path::{Path, PathBuf};
-
 fn main() {
     // Get config path
     let config_path = std::env::var("XDG_CONFIG_HOME");
